@@ -42,11 +42,11 @@ end
 
 ```objc
 [_bluetoothDiscovery startSearch:^(NSArray<MHBluetoothDevice *> *bluetoothDevices,NSError* error) {
-	if (error.code == 0) {
-    	weakSelf.bluetoothDevice = [bluetoothDevices mutableCopy];
-    	[weakSelf.tableView reloadData];
-  	}else if(error.code == CBManagerStatePoweredOff){
-    	NSLog(@"请打开蓝牙");
+    if (error.code == 0) {
+        weakSelf.bluetoothDevice = [bluetoothDevices mutableCopy];
+        [weakSelf.tableView reloadData];
+    }else if(error.code == CBManagerStatePoweredOff){
+    	   NSLog(@"请打开蓝牙");
   	}
 }];
 ```
