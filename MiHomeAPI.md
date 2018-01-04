@@ -66,9 +66,9 @@ failure：请求失败返回的信息。
 1.3.2 获取快连新接入的设备
 ```objc
 -(void)fetchNewDeviceWith:(NSString*)ssid
-withBssid:(NSString*)bssid
-DeviceListBlock:(void(^)(MHDevices* deviceList))deviceList
-failure:(void(^)(NSError* error))failure;
+                withBssid:(NSString*)bssid
+                DeviceListBlock:(void(^)(MHDevices* deviceList))deviceList
+                failure:(void(^)(NSError* error))failure;
 ```
 param： ssid，路由器的ssid
 
@@ -166,7 +166,7 @@ SDK需要登陆后才能操作设备，所以APP开发必须申请API和取得ap
 ```objc
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 	_account = [[MHAccount alloc] initWithAppId:@"申请的appid" redirectUrl:@"http://xiaomi.com"];
-return YES;
+    return YES;
 }
 ```
 

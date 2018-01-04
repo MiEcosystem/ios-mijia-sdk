@@ -41,18 +41,15 @@ end
   扫描出来.
 
 ```objc
-[_bluetoothDiscovery startSearch:
-^(NSArray<MHBluetoothDevice *> *bluetoothDevices,
-	NSError* error) {
-       if (error.code == 0) {
-           weakSelf.bluetoothDevice =
-					 [bluetoothDevices mutableCopy];
-           [weakSelf.tableView reloadData];
-       }else if(error.code == CBManagerStatePoweredOff){
-           NSLog(@"请打开蓝牙");
-       }
-
-   }];
+[_bluetoothDiscovery startSearch:^(NSArray<MHBluetoothDevice *> *bluetoothDevices,NSError* error) {
+  if (error.code == 0) {
+    weakSelf.bluetoothDevice =
+		[bluetoothDevices mutableCopy];
+    [weakSelf.tableView reloadData];
+  }else if(error.code == CBManagerStatePoweredOff){
+    NSLog(@"请打开蓝牙");
+  }
+}];
 ```
 
 
@@ -63,39 +60,35 @@ MHXiaoMiConnectManager 这个类的主要功能是实现符合小米协议的蓝
 ```objc
 MHBluetoothDevice* device = _bluetoothDevice[indexPath.row];
 
-   NSData* token = [[NSUserDefaults
-	 standardUserDefaults] valueForKey:@"loginToken"];
-   if ([token length]) {
-       if (device) {
-           MHXiaoMiConnectManager* connectManager =
-					  [[MHXiaoMiConnectManager alloc] init];
-           [connectManager loginXiaoMiBluetoothDeviceWith:device loginToken:token
-           miDevice:^(MHXiaoMiBluetoothDevice * _Nullable bleDevice) {
-               if (bleDevice) {
-                   NSLog(@"成功login符合小米协议的设备");
-               }else{
-                   NSLog(@"login 失败");
-               }
-           }];
-       }
-
-   }else{
-       if (device) {
-           MHXiaoMiConnectManager* connectManager = [[MHXiaoMiConnectManager alloc] init];
-           [connectManager registerXiaoMiBluetoothDeviceWith:device
-           miDevice:^(MHXiaoMiBluetoothDevice *bleDevice) {
-               if (bleDevice) {
-                   NSLog(@"成功注册一个符合小米协议的设备");
-                   //存储一下logintoken  300c84ca 3a261223 446376c0
-                   NSLog(@"loginToken = %@",bleDevice.loginToken);
-                   [[NSUserDefaults standardUserDefaults] setValue:bleDevice.loginToken forKey:@"loginToken"];
-                   [[NSUserDefaults standardUserDefaults] synchronize];
-               }else{
-                   NSLog(@"register 失败");
-               }
-           }];
-       }
-   }
+NSData* token = [[NSUserDefaults standardUserDefaults] valueForKey:@"loginToken"];
+if ([token length]) {
+  if (device) {
+    MHXiaoMiConnectManager* connectManager = [[MHXiaoMiConnectManager alloc] init];
+    [connectManager loginXiaoMiBluetoothDeviceWith:device loginToken:token
+                          miDevice:^(MHXiaoMiBluetoothDevice * _Nullable bleDevice) {
+      if (bleDevice) {
+        NSLog(@"成功login符合小米协议的设备");
+      }else{
+        NSLog(@"login 失败");
+      }
+    }];
+  }
+}else{
+  if (device) {
+    MHXiaoMiConnectManager* connectManager = [[MHXiaoMiConnectManager alloc] init];
+    [connectManager registerXiaoMiBluetoothDeviceWith:device miDevice:^(MHXiaoMiBluetoothDevice *bleDevice) {
+      if (bleDevice) {
+        NSLog(@"成功注册一个符合小米协议的设备");
+        //存储一下logintoken  300c84ca 3a261223 446376c0
+        NSLog(@"loginToken = %@",bleDevice.loginToken);
+        [[NSUserDefaults standardUserDefaults] setValue:bleDevice.loginToken forKey:@"loginToken"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+      }else{
+        NSLog(@"register 失败");
+      }
+    }];
+  }
+}
 
 ```
 当不在需要MHXiaoMiConnectManager 连接后，请调用 MHXiaoMiConnectManager的disconnect的方法，释放对象。
@@ -110,13 +103,10 @@ MHBluetoothBroadcastPackage 通过传入的最原始的蓝牙数据生成一个p
 原始数据是通过NSDictionary 传入,对应的key-value
 
 ```objc
- 	data[@"centralManager"] = centralManager;
-
-	data[@"peripheral"] = peripheral;
-
-	data[@"advertisementData"] = advertisementData;
-
-	data[@"RSSI"] = RSSI
+data[@"centralManager"] = centralManager;
+data[@"peripheral"] = peripheral;
+data[@"advertisementData"] = advertisementData;
+data[@"RSSI"] = RSSI
 ```
 
 4 .私人定制
