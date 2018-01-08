@@ -9,7 +9,7 @@
 
 1. 注册
 
-在[小米开放平台](http://dev.xiaomi.com/docs/passport/user_guide/)
+	在[小米开放平台](http://dev.xiaomi.com/docs/passport/user_guide/)
 取得appid，以及redirectURL。
 
 
@@ -47,10 +47,11 @@ pod 'YYModel'
 
 1.3.1 获取设备列表
 
-
+```objc
 -(void)fetchDeviceListWithFilters:(NSArray<NSString*>*)dids
 DeviceListBlock:(void(^)(MHDevices* deviceList))deviceList
 failure:(void(^)(NSError* error))failure
+```
 
 param： dids，需要获取的设备属性的列表。如果想要获取指定设备的属性，
 需要传入。如果默认拉取账户下所有的设备，只需要传入nil。
@@ -63,12 +64,12 @@ failure：请求失败返回的信息。
 
 
 1.3.2 获取快连新接入的设备
-
+```objc
 -(void)fetchNewDeviceWith:(NSString*)ssid
-withBssid:(NSString*)bssid
-DeviceListBlock:(void(^)(MHDevices* deviceList))deviceList
-failure:(void(^)(NSError* error))failure;
-
+                withBssid:(NSString*)bssid
+                DeviceListBlock:(void(^)(MHDevices* deviceList))deviceList
+                failure:(void(^)(NSError* error))failure;
+```
 param： ssid，路由器的ssid
 
 bssid，路由器的mac地址。设备需要跟路由器绑定。
@@ -81,13 +82,13 @@ failure：同上。
 
 
 1.3.3 操作设备
-
+```objc
 -(void)callDeviceMethod:(MHDevice*) device
-method:(NSString *)method
-params:(id)params
-sucess:(void(^)(id result))sucess
-failure:(void(^)(NSError* error))failure;
-
+				method:(NSString *)method
+				params:(id)params
+				sucess:(void(^)(id result))sucess
+				failure:(void(^)(NSError* error))failure;
+```
 
 param： device，需要操作的设备。
 method，具体的操作方法。
@@ -96,16 +97,16 @@ sucess，操作成功的回调。
 failure，操作失败的回调。
 
 1.4 MHDeviceSmartConfig.h 设备快连的类
-
+```objc
 -(void)startAPSmartConfigDeviceIp:(NSString*)deviceIp
-WithSSID:(NSString*)ssid
-WithBSSID:(NSString*)bssid
-password:(NSString*)password
-userId:(NSString*)userId
-domain:(NSString*)domain
-progressBlock:(void(^)(kSmartConfigState state,
-kSartConfigResult result,BOOL* stop))progressBlock;
-
+						WithSSID:(NSString*)ssid
+						WithBSSID:(NSString*)bssid
+						password:(NSString*)password
+						userId:(NSString*)userId
+						domain:(NSString*)domain
+						progressBlock:(void(^)(kSmartConfigState state,
+						kSartConfigResult result,BOOL* stop))progressBlock;
+```
 param： deviceip，设备的ip地址。(demo中有获取设备ip的code)
 ssid：  路由器的ssid。
 bssid： 路由器的mac地址。（demo中有获取路由器mac地址的code）
@@ -137,12 +138,12 @@ protocol的实例。在这个里面你可以做任何事情，比如说把参数
 
 2.3 MHNetworkEngine.h
 SDK的网络请求。
-
+```objc
 +(void)callRemoteApi:(MHBaseRequest*)request
-httpMethod:(NSString*)method
-sucess:(void(^)(MHBaseRequest* request,id result))sucess
-failure:(void(^)(NSError* error))failure;
-
+			httpMethod:(NSString*)method
+			sucess:(void(^)(MHBaseRequest* request,id result))sucess
+			failure:(void(^)(NSError* error))failure;
+```
 自己继承MHBaseRequest,写一个自己的网络请求。然后发给小米的后台。前提
 是你自己知道自己该调用哪个接口。
 
@@ -164,10 +165,8 @@ SDK需要登陆后才能操作设备，所以APP开发必须申请API和取得ap
 
 ```objc
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-_account = [[MHAccount alloc] initWithAppId:
-@"179887661252608"
-redirectUrl:@"http://xiaomi.com"];
-return YES;
+	_account = [[MHAccount alloc] initWithAppId:@"申请的appid" redirectUrl:@"http://xiaomi.com"];
+    return YES;
 }
 ```
 
@@ -176,16 +175,17 @@ return YES;
 APP要控制设备，需要先进行快联设备，告诉设备wifi 和对应的密码。设备快联成功后就可以操作设备了。(具体代码可以见Demo 程序中的 MHScanViewController.m 文件)
 ```objc
 - (void)authButtonClick:(id)sender{
-_smartConfig = [[MHDeviceSmartConfig alloc] init];
-[_smartConfig startAPSmartConfigDeviceIp:[self getRouterIp]
-WithSSID:@"Banana"
-WithBSSID:_bssid
-password:@"helloworld"
-userId:_profile.userId domain:@"cn"
-progressBlock:^(kSmartConfigState state,
-kSartConfigResult result, BOOL *stop) {
-NSLog(@"state = %d,result = %d",state,result);
-}];
+	_smartConfig = [[MHDeviceSmartConfig alloc] init];
+	[_smartConfig startAPSmartConfigDeviceIp:[self getRouterIp]
+									WithSSID:@"Banana"
+									WithBSSID:_bssid
+									password:@"密码"
+									userId:_profile.userId 
+                                    domain:@"cn"
+									progressBlock:^(kSmartConfigState state,
+									kSartConfigResult result, BOOL *stop) {
+		NSLog(@"state = %d,result = %d",state,result);
+	}];
 }
 ```
 
@@ -193,11 +193,10 @@ NSLog(@"state = %d,result = %d",state,result);
 快联成后，就可以拉取设备列表，得到对应的Device。
 ```objc
 MHDeviceManager* manager = [MHDeviceManager new];
-[manager fetchDeviceListWithFilters:nil
-DeviceListBlock:^(NSArray<MHDevice *> *devices) {
-NSLog(@"%@",devices);
+[manager fetchDeviceListWithFilters:nil DeviceListBlock:^(NSArray<MHDevice *> *devices) {
+	NSLog(@"%@",devices);
 } failure:^(NSError *error) {
-NSLog(@"%@",error);
+	NSLog(@"%@",error);
 }];
 ```
 
@@ -208,21 +207,17 @@ NSLog(@"%@",error);
 NSString* method = @"set_power";
 id params = nil;
 if (_isOn) {
-[self.oprationBtn setTitle:@"ON"
-forState:UIControlStateNormal];
-params = @[@"off"];
+	[self.oprationBtn setTitle:@"ON" forState:UIControlStateNormal];
+	params = @[@"off"];
 }else{
-[self.oprationBtn setTitle:@"OFF"
-forState:UIControlStateNormal];
-params = @[@"on"];
+	[self.oprationBtn setTitle:@"OFF" forState:UIControlStateNormal];
+	params = @[@"on"];
 }
 _isOn = !_isOn;
-[_deviceManager callDeviceMethod:_device
-method:method params:params
-sucess:^(id result) {
-NSLog(@"%@",result);
+[_deviceManager callDeviceMethod:_device method:method params:params sucess:^(id result) {
+	NSLog(@"%@",result);
 } failure:^(NSError *error) {
-NSLog(@"%@",error);
+	NSLog(@"%@",error);
 }];
 ```
 更多的操作见 MiOprationController.m
@@ -233,10 +228,10 @@ NSLog(@"%@",error);
 ## 主app 登陆后，需要保存共享信息，代码类似如下（具体代码参见 ViewController.m 的 fecthDatas 方法）
 ```objc
 - (void)setWidgetShareData{
-NSUserDefaults *shared = [[NSUserDefaults alloc] initWithSuiteName:@"group.mismarthome.1"];
-NSDictionary* dict = [MHPassport accountLoginParameters];
-[shared setObject:dict forKey:@"group.mismarthome.1.dict"];
-[shared synchronize];
+	NSUserDefaults *shared = [[NSUserDefaults alloc] initWithSuiteName:@"group.mismarthome.1"];
+	NSDictionary* dict = [MHPassport accountLoginParameters];
+	[shared setObject:dict forKey:@"group.mismarthome.1.dict"];
+	[shared synchronize];
 }
 ```
 
@@ -250,18 +245,18 @@ NSDictionary* dict = [MHPassport accountLoginParameters];
 
 @implementation MHPGHPassportSerializer
 -(NSDictionary*)configHttpRequest:(NSDictionary*)parameters{
-NSUserDefaults *shared = [[NSUserDefaults alloc] initWithSuiteName:@"group.mismarthome.1"];
+	NSUserDefaults *shared = [[NSUserDefaults alloc] initWithSuiteName:@"group.mismarthome.1"];
 
-NSDictionary* dict = [shared objectForKey:@"group.mismarthome.1.dict"];
-NSMutableDictionary* mDict = [[NSMutableDictionary alloc] initWithCapacity:10];
-if(dict){
-[mDict addEntriesFromDictionary:dict];
-}
-if(parameters){
-[mDict addEntriesFromDictionary:parameters];
-}
+	NSDictionary* dict = [shared objectForKey:@"group.mismarthome.1.dict"];
+	NSMutableDictionary* mDict = [[NSMutableDictionary alloc] initWithCapacity:10];
+	if(dict){
+		[mDict addEntriesFromDictionary:dict];
+	}
+	if(parameters){
+		[mDict addEntriesFromDictionary:parameters];
+	}
 
-return mDict;
+	return mDict;
 }
 ```
 当today Extension 发送请求的时候，设置自定义的Serializer
@@ -270,10 +265,10 @@ return mDict;
 _deviceManager = [MHDeviceManager new];
 _deviceManager.serializer = [MHPGHPassportSerializer serializer];
 [_deviceManager fetchDeviceListWithFilters:nil DeviceListBlock:^(MHDevices* deviceList) {
-_devices = [deviceList.devices copy];
-[self sendRPC];
+	_devices = [deviceList.devices copy];
+	[self sendRPC];
 } failure:^(NSError *error) {
-NSLog(@"%@",error);
+	NSLog(@"%@",error);
 }];
 ```
 
@@ -289,7 +284,6 @@ https://us.openapp.io.mi.com/openapp
 ```objc
 [MHBaseRequest setupBaseRequestUrl:@"https://us.openapp.io.mi.com/openapp"]
 ```
-
 
 
 
