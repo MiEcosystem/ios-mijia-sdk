@@ -9,8 +9,7 @@
 
 1. 注册
 
-	在[小米开放平台](http://dev.xiaomi.com/docs/passport/user_guide/)
-取得appid，以及redirectURL。
+	在[小米开放平台](http://dev.xiaomi.com/) 取得appid，以及redirectURL。
 
 
 # SDK 集成步骤
