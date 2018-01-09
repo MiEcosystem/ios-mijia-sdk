@@ -9,7 +9,7 @@
 
 1. 注册
 
-	在[小米开放平台](http://dev.xiaomi.com/) 取得appid，以及redirectURL。
+	在[小米开放平台](http://dev.xiaomi.com/)注册小米账户服务。 取得appid，以及redirectURL。
 
 
 # SDK 集成步骤
