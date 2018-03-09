@@ -171,6 +171,11 @@ SDK需要登陆后才能操作设备，所以APP开发必须申请API和取得ap
 
 
 ### 快连设备（如果已经快连，此步略过）
+快联有两种方式：
+1、AP方式
+2、bindkey绑定方式
+
+####1、AP方式快联
 APP要控制设备，需要先进行快联设备，告诉设备wifi 和对应的密码。设备快联成功后就可以操作设备了。(具体代码可以见Demo 程序中的 MHScanViewController.m 文件)
 ```objc
 - (void)authButtonClick:(id)sender{
@@ -187,7 +192,33 @@ APP要控制设备，需要先进行快联设备，告诉设备wifi 和对应的
 	}];
 }
 ```
+#### 2、bindkey绑定方式
+如果设备已经链接网络了，但是没有和小米帐号绑定，就需要要用bindkey的方式来绑定米家账户。 这时需要获取bindkey字符串，然后通过bindWithBindKey 方法来链接，
+```objc
+-(void)init{
+	_deviceManager = [MHDeviceManager new];
+}
 
+
+-(void)bind:(NSString*)bindKey{
+	[_deviceManager bindWithBindKey:bindKey success:^(id obj){
+        MHDeviceBindWithBindkeyResponse* rsp = (MHDeviceBindWithBindkeyResponse*)obj;
+        if(rsp.ret == 0){
+            printf("绑定成功\r\n");
+        }else{
+            printf("绑定失败 errcode == %ld",rsp.ret);
+        }
+
+		} failure:^(NSError* err){
+        	printf("bindKey fail\r\n");
+	}];
+}
+
+[self init];
+NSString* bindKey = @"";//获取的bindkey，通常是扫描二维码的方式得到
+[self bind:bindKey];
+
+```
 ### 获取设备列表
 快联成后，就可以拉取设备列表，得到对应的Device。
 ```objc
@@ -198,6 +229,7 @@ MHDeviceManager* manager = [MHDeviceManager new];
 	NSLog(@"%@",error);
 }];
 ```
+
 
 ### 操作设备
 获得设备之后，可以发对应的指令来操作，假设操作设备为一个插座，代码类似如下：
@@ -283,6 +315,8 @@ https://us.openapp.io.mi.com/openapp
 ```objc
 [MHBaseRequest setupBaseRequestUrl:@"https://us.openapp.io.mi.com/openapp"]
 ```
+
+
 
 
 
