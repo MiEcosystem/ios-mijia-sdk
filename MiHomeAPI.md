@@ -11,6 +11,9 @@
 
 	在[小米开放平台](http://dev.xiaomi.com/)注册小米账户服务。 取得appid，以及redirectURL。
 
+2. 开通权限
+
+	在 “开放接口” 中 开启 “使用您的智能家庭服务“ 权限。并公司邮件发送appid给服务器组的同学才能拉取到。
 
 # SDK 集成步骤
 
@@ -315,6 +318,7 @@ https://us.openapp.io.mi.com/openapp
 ```objc
 [MHBaseRequest setupBaseRequestUrl:@"https://us.openapp.io.mi.com/openapp"]
 ```
+
 
 
 
