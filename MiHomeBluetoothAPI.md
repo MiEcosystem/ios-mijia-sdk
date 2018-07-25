@@ -116,6 +116,7 @@ data[@"RSSI"] = RSSI
 
 ## Demo
 MiSmartHomeBluetoothDemo 包括两种连接，一种是批量链接设备，一种是单点链接某个设备。
+
 1、批量链接设备的代码见bluetoothController.m的beginLoop 方法。
 
 2、单点链接的代码见bluetoothController.m的tableview:didSelectRowAtIndexPath: 方法
