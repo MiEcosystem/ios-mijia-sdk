@@ -24,10 +24,10 @@ pod 'AFNetworking','3.1.0'
 pod 'YYModel'
 ```
 2. 建立自己的工程，把两个framework（MiDeviceFramework，MiPassport）导入。
-![导入framework](http://7xrfz8.com1.z0.glb.clouddn.com/%E6%AD%A5%E9%AA%A4%E4%B8%80.png)
+![导入framework](./images/framework.png)
 
 3. 改变工程的编译环境
-![编译环境设置](http://7xrfz8.com1.z0.glb.clouddn.com/%E6%AD%A5%E9%AA%A4%E4%BA%8C.png)
+![编译环境设置](./images/env.png)
 
 4. 完成上述步骤就可以正式开发了。
 

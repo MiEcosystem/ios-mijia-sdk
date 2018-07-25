@@ -26,12 +26,15 @@ end
 
 2 . 工程配置
 工程需要按照以下图进行配置
-![bitcode](http://7xrfz8.com1.z0.glb.clouddn.com/QQ20161021-0.png)
 
+bitcode 设置
+![bitcode](./images/bitcode.png)
 
-![other linker Flags](http://7xrfz8.com1.z0.glb.clouddn.com/QQ20161021-1.png)
+other linker设置
+![other linker Flags](./images/link.png)
 
-![compile source as](http://7xrfz8.com1.z0.glb.clouddn.com/QQ20161021-2.png)
+compile source 设置
+![compile source as](./images/source.png)
 
 ## 3 .接口说明
 
