@@ -114,7 +114,7 @@ data[@"RSSI"] = RSSI
 
 如果不需要我们的sdk提你扫描蓝牙设备,可以通过MHBluetoothDeviceFactory传入package生成一个MHBluetoothDevice,然后传给MHXiaoMiConnectManager,让我们的sdk替你实现连接即可.
 
-##Demo
+## Demo
 MiSmartHomeBluetoothDemo 包括两种连接，一种是批量链接设备，一种是单点链接某个设备。
 1、批量链接设备的代码见bluetoothController.m的beginLoop 方法。
 
