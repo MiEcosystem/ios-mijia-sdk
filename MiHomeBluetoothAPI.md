@@ -15,7 +15,7 @@ MiPassport.framework,MiPassport.bundle
 
 采用AFNetworking作为网络基础库.统一采用pod管理.
 
-1 . podfile
+### 2.1  podfile
 
 ```
 project 'MiSmartHomeBluetoothDemo.xcodeproj'
@@ -24,7 +24,7 @@ target :MiSmartHomeBluetoothDemo do
 end
 ```
 
-2 . 工程配置
+### 2.2 工程配置
 工程需要按照以下图进行配置
 
 bitcode 设置
@@ -36,9 +36,9 @@ other linker设置
 compile source 设置
 ![compile source as](./images/source.png)
 
-## 3 .接口说明
+## 3. 接口说明
 
-1 . 扫描设备
+### 3.1 扫描设备
 
   MHBluetoothDiscovery 这个类主要的功能就是扫描普通的蓝牙设备.只是打开蓝牙的设备,都可以
   扫描出来.
@@ -55,7 +55,7 @@ compile source 设置
 ```
 
 
-2 . 连接设备
+### 3.2 连接设备
 
 MHXiaoMiConnectManager 这个类的主要功能是实现符合小米协议的蓝牙设备的连接操作.如果需要反复链接的话，可以保存MHXiaoMiConnectManager的实例。
 
@@ -96,7 +96,7 @@ if ([token length]) {
 
 如果想了解蓝牙连接设备的连接情况，可以调用 MHXiaoMiConnectManager 的 registerCentralManagerDelegate方法，并且实现CBCentralManagerDelegate 定义的方法，就可以知道在蓝牙连接过程中 连接是否断开。
 
-3 .蓝牙设备生成
+### 3.3 蓝牙设备生成
 
 MHBluetoothDeviceFactory 可以通过传入package生成一个MHBluetoothDevice .
 
@@ -110,7 +110,23 @@ data[@"advertisementData"] = advertisementData;
 data[@"RSSI"] = RSSI
 ```
 
-4 .私人定制
+### 3.4 combo快联
+如果设备支持WIFI和蓝牙，就是combo快联设备，连接代码如下
+```objc 
+_comboConnect = [[MHComboConnectManager alloc] init];
+_comboConnect.uid = @"用户账户";
+_comboConnect.ssid = @"wifi名";
+_comboConnect.password = @"密码";
+_comboConnect.country = comboConnectCountryChina; //服务器位置
+
+[_comboConnect comboConnect:device success:^{
+	NSLog(@"commbo sucess");
+} failure:^(NSError *error) {
+
+}];
+```
+
+###3.5. 私人定制
 
 如果不需要我们的sdk提你扫描蓝牙设备,可以通过MHBluetoothDeviceFactory传入package生成一个MHBluetoothDevice,然后传给MHXiaoMiConnectManager,让我们的sdk替你实现连接即可.
 
