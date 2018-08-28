@@ -111,7 +111,7 @@ data[@"RSSI"] = RSSI
 ```
 
 ### 3.4 combo快联
-如果设备支持WIFI和蓝牙，就是combo快联设备，连接代码如下
+如果设备支持WIFI和蓝牙，就是combo快联设备，combo快联第一步也是调用MHBluetoothDiscovery 发现设备，然后通过comboConnect api去链接设备，连接代码类似如下
 ```objc 
 _comboConnect = [[MHComboConnectManager alloc] init];
 _comboConnect.uid = @"用户账户";
