@@ -199,9 +199,10 @@ SDK需要登陆后才能操作设备，所以APP开发必须申请API和取得ap
 ```
 
 ### 快连设备（如果已经快连，此步略过）
-快联有两种方式：
-1、AP方式
-2、bindkey绑定方式
+快联有三种方式：
+1. AP方式
+2. bindkey绑定方式
+3. combo 快联（见[蓝牙文档 3.4 combo快联章节](./MiHomeBluetoothAPI.md#34-combo快联)）
 
 #### 1、AP方式快联
 APP要控制设备，需要先进行快联设备，告诉设备wifi 和对应的密码。设备快联成功后就可以操作设备了。(具体代码可以见Demo 程序中的 MHScanViewController.m 文件)
