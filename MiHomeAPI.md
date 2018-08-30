@@ -247,6 +247,19 @@ NSString* bindKey = @"";//获取的bindkey，通常是扫描二维码的方式�
 [self bind:bindKey];
 
 ```
+
+### 获取快联成功后的新设备
+当快联成功后，想知道新添加的设备是那个。请使用fetchNewDeviceWith 来获得
+```objc
+self.deviceManager = [MHDeviceManager new];
+    
+[self.deviceManager fetchNewDeviceWith:@"wifi名" withBssid:@"wifi名" withDeviceMac:nil channel:nil DeviceListBlock:^(MHDevices *devices) {
+        NSLog(@"新设备是 %@",devices);
+    }  failure:^(NSError *error) {
+        NSLog(@"%@",error);
+}];
+```
+
 ### 获取设备列表
 快联成后，就可以拉取设备列表，得到对应的Device。
 ```objc
