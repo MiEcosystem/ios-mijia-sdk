@@ -175,7 +175,7 @@ SDK需要登陆后才能操作设备，所以APP开发必须申请API和取得ap
 ### 登录
 登录需要注册相关的通知事件，然后调用login 方法，权限为数组，更多的权限见[小米账户权限](https://dev.mi.com/docs/passport/scopes/)
 ```objc
-\\注册相关通知
+//注册相关通知
 [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(accountLogin:) name:MH_Account_Login_Sucess object:nil];
 
 [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(accountLogout:) name:MH_Account_Logout_Sucess object:nil];
@@ -184,7 +184,7 @@ SDK需要登陆后才能操作设备，所以APP开发必须申请API和取得ap
     
 [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(accountLoginFailure:) name:MH_Account_Login_Failure object:nil];
 
-\\登录
+//登录
 [_account login:@[@1,@3,@6000]];
 
 ```
