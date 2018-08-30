@@ -172,6 +172,31 @@ SDK需要登陆后才能操作设备，所以APP开发必须申请API和取得ap
 }
 ```
 
+### 登录
+登录需要注册相关的通知事件，然后调用login 方法，权限为数组，更多的权限见[小米账户权限](https://dev.mi.com/docs/passport/scopes/)
+```objc
+\\注册相关通知
+[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(accountLogin:) name:MH_Account_Login_Sucess object:nil];
+
+[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(accountLogout:) name:MH_Account_Logout_Sucess object:nil];
+
+[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(accountLogCancel:) name:MH_Account_Login_Cancel object:nil];
+    
+[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(accountLoginFailure:) name:MH_Account_Login_Failure object:nil];
+
+\\登录
+[_account login:@[@1,@3,@6000]];
+
+```
+
+### 获取账户信息
+当登录成功后，可以调用fetchAccountProfile 方法获取登录账户的相关信息。MHAccountProfile
+```objc
+[_account fetchAccountProfile:^(MHAccountProfile *profile, NSError *error) {
+    _profile = profile;
+	NSLog(@"_profile.userId = %@",_profile.userId);
+}];
+```
 
 ### 快连设备（如果已经快连，此步略过）
 快联有两种方式：
