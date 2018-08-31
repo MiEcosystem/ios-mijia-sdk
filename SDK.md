@@ -1,6 +1,6 @@
 # SDK的文件构成
 
-1. MiDeviceFramework: MiHome独立SDK的主体.封装了与设备快连,远程操作设备,拉取设备列表,帐号持久化等接口。
+1. MiCombo_APConnectFramework: MiHome独立SDK的主体.封装了与设备快连,远程操作设备,拉取设备列表,帐号持久化等接口。
 
 2. MiPassport: 小米官方给第三方开发者的基于OAuth2.0的账户登录SDK。
 
