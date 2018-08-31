@@ -1,0 +1,11 @@
+# 国际化
+如果要做国际化的请求，需要自己设置调用MHBaseRequest的 setupBaseRequestUrl:的方法设置对应的请求服务器。
+
+默认为中国的地址（https://openapp.io.mi.com/openapp），不需要设置
+
+如果要请求美国的地址，徐需要在openapp前面加us。请求url变为
+https://us.openapp.io.mi.com/openapp
+
+```objc
+[MHBaseRequest setupBaseRequestUrl:@"https://us.openapp.io.mi.com/openapp"]
+```
