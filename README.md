@@ -1,6 +1,6 @@
 <!-- beta -->
-** 最新文档请访问 [米家开发平台](https://iot.mi.com/new/guide.html?file=首页) 开发引导**  github以后不再更新
-# 米家独立sdk 开发文档
+# ** 最新文档请访问 [米家开发平台](https://iot.mi.com/new/guide.html?file=首页) 开发引导**  github以后不再更新
+## 米家独立sdk 开发文档
 文档分七部分，如果只需要看链接WiFi设备，那么请看WiFi设备开发，如果需要链接蓝牙设备，那么请看蓝牙设备开发。
 
 - [SDK介绍](./2.SDK说明.md)  主要是介绍如何注册App和开通权限以及依赖库。
